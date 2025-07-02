@@ -1,1 +1,1 @@
-web: php artisan config:clear && php artisan key:generate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+web: php test-db.php && php artisan serve --host=0.0.0.0 --port=$PORT
