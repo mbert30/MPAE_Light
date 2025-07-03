@@ -107,7 +107,7 @@ class FactureResource extends Resource
                                                         
                                                         if (!$currentFactureId) {
                                                             $url = request()->url();
-                                                            if (preg_match('/\/admin\/factures\/(\d+)\/edit/', $url, $matches)) {
+                                                            if (preg_match('/\/factures\/(\d+)\/edit/', $url, $matches)) {
                                                                 $currentFactureId = (int) $matches[1];
                                                             }
                                                         }

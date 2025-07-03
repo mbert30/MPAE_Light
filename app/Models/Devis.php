@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Services\DevisExcelExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Traits\HasFrenchDates;
 
 class Devis extends Model
 {
     use HasFactory;
+    use HasFrenchDates;
 
     protected $table = 'devis';
     protected $primaryKey = 'id_devis';

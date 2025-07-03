@@ -23,13 +23,14 @@ class UserPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('user')
             ->path('/')
             ->login()
             ->registration(\App\Filament\User\Pages\Auth\Register::class)
             ->passwordReset()
             ->emailVerification() 
-            //->profile()
+            ->profile(\App\Filament\User\Pages\Auth\EditProfile::class)
             ->brandName('MPAE Light')
             ->colors([
                 'primary' => Color::Blue,
@@ -41,9 +42,11 @@ class UserPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/User/Widgets'), for: 'App\\Filament\\User\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                \App\Filament\User\Widgets\ChiffreAffaireChart::class,
-                \App\Filament\User\Widgets\ProjetsDashboard::class,
+                \App\Filament\User\Widgets\CustomAccountWidget::class,
+                \App\Filament\User\Widgets\ResumeAnnuelWidget::class,
+                \App\Filament\User\Widgets\ResumeTrimestrielWidget::class,
+                \App\Filament\User\Widgets\CAMensuelChartWidget::class,
+                \App\Filament\User\Widgets\EvolutionCAAnnuelWidget::class,
                 \App\Filament\User\Widgets\StatsOverview::class,
             ])
             ->middleware([

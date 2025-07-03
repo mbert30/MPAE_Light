@@ -23,22 +23,22 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->homeUrl('/admin/users')
+            ->brandName('MPAE Light Admin')
+            ->login(\App\Filament\Admin\Pages\Auth\AdminLogin::class)
             ->colors([
                 'primary' => Color::Red,
             ])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
-                Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
+                \App\Filament\Admin\Widgets\StatsOverview::class,
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -52,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                \App\Http\Middleware\EnsureUserIsAdmin::class,
+                Authenticate::class,
             ]);
     }
 }

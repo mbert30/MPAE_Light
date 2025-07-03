@@ -7,10 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use App\Traits\HasFrenchDates;
 
 class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
+    use HasFrenchDates;
 
     protected $fillable = [
         'name',

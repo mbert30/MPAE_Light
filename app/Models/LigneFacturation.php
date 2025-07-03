@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\HasFrenchDates;
 
 class LigneFacturation extends Model
 {
     use HasFactory;
+    use HasFrenchDates;
 
     protected $table = 'ligne_facturations';
     protected $primaryKey = 'id_ligne_facturation';

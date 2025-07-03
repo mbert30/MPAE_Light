@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\HasFrenchDates;
 
 class Client extends Model
 {
     use HasFactory;
+    use HasFrenchDates;
 
     protected $table = 'clients';
     protected $primaryKey = 'id_client';

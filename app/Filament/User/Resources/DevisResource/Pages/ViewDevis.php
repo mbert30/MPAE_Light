@@ -47,7 +47,7 @@ class ViewDevis extends ViewRecord
                     ->icon('heroicon-o-document-plus')
                     ->color('success')
                     ->visible(fn () => $this->record->statut === 'accepte')
-                    ->url(fn () => route('filament.admin.resources.factures.create', ['devis' => $this->record->id_devis]));
+                    ->url(fn () => route('filament.user.resources.factures.create', ['devis' => $this->record->id_devis]));
                 break;
             case 'refuse':
             case 'expire':
@@ -90,15 +90,16 @@ class ViewDevis extends ViewRecord
                                     ->label('Client'),
                                 Components\TextEntry::make('date_validite')
                                     ->label('Date de validité')
-                                    ->date('d/m/Y')
+                                    ->getStateUsing(fn ($record) => $record->formatFrenchDateOnly($record->date_validite))
                                     ->color(fn ($record) => $record->est_expire ? 'danger' : 'gray')
                                     ->icon(fn ($record) => $record->est_expire ? 'heroicon-o-exclamation-triangle' : null),
                                 Components\TextEntry::make('created_at')
                                     ->label('Créé le')
-                                    ->dateTime('d/m/Y à H:i'),
+                                    ->getStateUsing(fn ($record) => $record->created_at_french),
                                 Components\TextEntry::make('updated_at')
                                     ->label('Modifié le')
-                                    ->dateTime('d/m/Y à H:i'),
+                                    ->dateTime('d/m/Y à H:i')
+                                    ->since(),
                             ]),
                         Components\TextEntry::make('note')
                             ->label('Note')

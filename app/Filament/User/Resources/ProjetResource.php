@@ -187,12 +187,12 @@ class ProjetResource extends Resource
                                     ->label('Client')
                                     ->icon('heroicon-m-building-office-2')
                                     ->url(fn (Projet $record): string => 
-                                        route('filament.admin.resources.clients.view', $record->client)
+                                        route('filament.user.resources.clients.view', $record->client)
                                     ),
 
                                 Infolists\Components\TextEntry::make('created_at')
                                     ->label('Date de création')
-                                    ->dateTime('d/m/Y à H:i')
+                                    ->getStateUsing(fn ($record) => $record->created_at_french)
                                     ->icon('heroicon-m-calendar'),
                             ]),
                     ]),
@@ -223,12 +223,13 @@ class ProjetResource extends Resource
                             ->schema([
                                 Infolists\Components\TextEntry::make('created_at')
                                     ->label('Créé le')
-                                    ->dateTime('d/m/Y à H:i')
+                                    ->getStateUsing(fn ($record) => $record->created_at_french)
                                     ->icon('heroicon-m-plus-circle'),
 
                                 Infolists\Components\TextEntry::make('updated_at')
                                     ->label('Modifié le')
                                     ->dateTime('d/m/Y à H:i')
+                                    ->since()
                                     ->icon('heroicon-m-pencil-square'),
                             ]),
                     ])

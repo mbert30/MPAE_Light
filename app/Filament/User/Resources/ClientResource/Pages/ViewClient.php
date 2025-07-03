@@ -7,9 +7,12 @@ use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use App\Traits\HasFrenchDates;
 
 class ViewClient extends ViewRecord
 {
+    use HasFrenchDates;
+    
     protected static string $resource = ClientResource::class;
 
     protected function getHeaderActions(): array
@@ -111,7 +114,7 @@ class ViewClient extends ViewRecord
                             ->schema([
                                 Infolists\Components\TextEntry::make('created_at')
                                     ->label('Créé le')
-                                    ->dateTime('d/m/Y à H:i')
+                                    ->getStateUsing(fn ($record) => $record->created_at_french)
                                     ->icon('heroicon-m-calendar'),
 
                                 Infolists\Components\TextEntry::make('updated_at')

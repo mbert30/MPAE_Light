@@ -155,7 +155,7 @@ class ClientResource extends Resource
 
                 TextColumn::make('created_at')
                     ->label('Créé le')
-                    ->dateTime('d/m/Y')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 

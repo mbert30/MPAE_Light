@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\HasFrenchDates;
 
 class Facture extends Model
 {
     use HasFactory;
+    use HasFrenchDates;
 
     protected $table = 'factures';
     protected $primaryKey = 'id_facture';
@@ -50,6 +52,11 @@ class Facture extends Model
     public function lignesFacturation(): HasMany
     {
         return $this->hasMany(LigneFacturation::class, 'id_facture', 'id_facture')->orderBy('ordre');
+    }
+
+    public function ligneFacturations(): HasMany
+    {
+        return $this->lignesFacturation();
     }
 
     /**

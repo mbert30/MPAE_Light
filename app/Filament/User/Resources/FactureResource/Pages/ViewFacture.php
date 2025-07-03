@@ -9,9 +9,12 @@ use Filament\Infolists\Infolist;
 use Filament\Infolists\Components;
 use Filament\Notifications\Notification;
 use Filament\Forms;
+use App\Traits\HasFrenchDates;
 
 class ViewFacture extends ViewRecord
 {
+    use HasFrenchDates;
+
     protected static string $resource = FactureResource::class;
 
     protected function getHeaderActions(): array
@@ -110,7 +113,7 @@ class ViewFacture extends ViewRecord
                                     }),
                                 Components\TextEntry::make('devis.numero_devis')
                                     ->label('Devis associé')
-                                    ->url(fn ($record) => route('filament.admin.resources.devis.view', $record->devis))
+                                    ->url(fn ($record) => route('filament.user.resources.devis.view', $record->devis))
                                     ->openUrlInNewTab(),
                                 Components\TextEntry::make('devis.projet.designation')
                                     ->label('Projet'),
@@ -121,10 +124,10 @@ class ViewFacture extends ViewRecord
                                     ->suffix('%'),
                                 Components\TextEntry::make('date_edition')
                                     ->label('Date d\'édition')
-                                    ->date('d/m/Y'),
+                                    ->getStateUsing(fn ($record)  => $record->formatFrenchDateOnly($record->date_edition)),
                                 Components\TextEntry::make('date_paiement_limite')
                                     ->label('Date limite de paiement')
-                                    ->date('d/m/Y')
+                                    ->getStateUsing(fn ($record) => $record->formatFrenchDateOnly($record->date_paiement_limite))
                                     ->color(fn ($record) => $record->est_en_retard ? 'danger' : 'gray')
                                     ->icon(fn ($record) => $record->est_en_retard ? 'heroicon-o-exclamation-triangle' : null)
                                     ->badge(fn ($record) => $record->est_en_retard)
@@ -137,14 +140,14 @@ class ViewFacture extends ViewRecord
                                     ->visible(fn ($state) => !empty($state)),
                                 Components\TextEntry::make('date_paiement_effectif')
                                     ->label('Date de paiement effectif')
-                                    ->date('d/m/Y')
+                                    ->getStateUsing(fn ($record) => $record->formatFrenchDateOnly($record->date_paiement_effectif))
                                     ->visible(fn ($state) => !empty($state)),
                                 Components\TextEntry::make('created_at')
                                     ->label('Créée le')
-                                    ->dateTime('d/m/Y à H:i'),
+                                    ->getStateUsing(fn ($record) => $record->formatFrenchDate($record->created_at)),
                                 Components\TextEntry::make('updated_at')
                                     ->label('Modifiée le')
-                                    ->dateTime('d/m/Y à H:i'),
+                                    ->getStateUsing(fn ($record) => $record->formatFrenchDate($record->updated_at)),
                             ]),
                         Components\TextEntry::make('note')
                             ->label('Note')

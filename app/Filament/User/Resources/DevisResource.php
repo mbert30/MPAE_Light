@@ -95,7 +95,7 @@ class DevisResource extends Resource
                                                         
                                                         if (!$currentDevisId) {
                                                             $url = request()->url();
-                                                            if (preg_match('/\/admin\/devis\/(\d+)\/edit/', $url, $matches)) {
+                                                            if (preg_match('/\/devis\/(\d+)\/edit/', $url, $matches)) {
                                                                 $currentDevisId = (int) $matches[1];
                                                             }
                                                         }
@@ -328,7 +328,7 @@ class DevisResource extends Resource
                     ->icon('heroicon-o-document-plus')
                     ->color('success')
                     ->visible(fn (Devis $record): bool => $record->statut === 'accepte' && !$record->facture)
-                    ->url(fn (Devis $record): string => route('filament.admin.resources.factures.create', ['devis' => $record->id_devis])),
+                    ->url(fn (Devis $record): string => route('filament.user.resources.factures.create', ['devis' => $record->id_devis])),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

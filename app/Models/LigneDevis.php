@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\HasFrenchDates;
 
 class LigneDevis extends Model
 {
     use HasFactory;
+    use HasFrenchDates;
 
     protected $table = 'ligne_devis';
     protected $primaryKey = 'id_ligne_devis';
